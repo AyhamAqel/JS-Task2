@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager Dashboard</title>
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div class="container">
+    <h1>Task Manager Dashboard</h1>
+
+    <form id="task-form">
+      <div>
+        <label for="title">Title</label>
+        <input type="text" id="title" name="title" />
+        <small class="error" id="title-error"></small>
+      </div>
+
+      <div>
+        <label for="description">Description</label>
+        <textarea id="description" name="description"></textarea>
+        <small class="error" id="description-error"></small>
+      </div>
+
+      <div>
+        <label for="priority">Priority</label>
+        <select id="priority" name="priority">
+          <option value="">Select priority</option>
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </select>
+        <small class="error" id="priority-error"></small>
+      </div>
+
+      <button type="submit">Add Task</button>
+    </form>
+
+    <hr />
+
+    <section>
+      <h2>Tasks</h2>
+      <div id="task-list"></div>
+    </section>
+  </div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>
