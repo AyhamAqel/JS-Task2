@@ -4,28 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Task Manager Dashboard</title>
+  <link rel="icon" href="data:," />
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
   <div class="container">
     <h1>Task Manager Dashboard</h1>
 
+    <!-- Form -->
     <form id="task-form">
+      <!-- نخزن id هون وقت التعديل -->
+      <input type="hidden" id="task-id" />
+
       <div>
         <label for="title">Title</label>
-        <input type="text" id="title" name="title" />
+        <input type="text" id="title" placeholder="Task title" />
         <small class="error" id="title-error"></small>
       </div>
 
       <div>
         <label for="description">Description</label>
-        <textarea id="description" name="description"></textarea>
+        <textarea id="description" placeholder="Task description"></textarea>
         <small class="error" id="description-error"></small>
       </div>
 
       <div>
         <label for="priority">Priority</label>
-        <select id="priority" name="priority">
+        <select id="priority">
           <option value="">Select priority</option>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
@@ -34,15 +39,45 @@
         <small class="error" id="priority-error"></small>
       </div>
 
-      <button type="submit">Add Task</button>
+      <div class="form-buttons">
+        <button type="submit" id="submit-btn">Add Task</button>
+        <button type="button" id="cancel-edit-btn" class="hidden">Cancel Edit</button>
+      </div>
     </form>
 
     <hr />
 
-    <section>
-      <h2>Tasks</h2>
-      <div id="task-list"></div>
-    </section>
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <input type="text" id="search" placeholder="Search tasks..." />
+
+      <select id="filter-status">
+        <option value="all">All Statuses</option>
+        <option value="todo">Todo</option>
+        <option value="in-progress">In Progress</option>
+        <option value="done">Done</option>
+      </select>
+
+      <select id="filter-priority">
+        <option value="all">All Priorities</option>
+        <option value="low">Low</option>
+        <option value="medium">Medium</option>
+        <option value="high">High</option>
+      </select>
+
+      <select id="sort-date">
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+      </select>
+    </div>
+
+    <!-- Loading + Global Error -->
+    <p id="loading" class="hidden">Loading...</p>
+    <div id="global-error" class="global-error hidden"></div>
+
+    <!-- Tasks -->
+    <h2 id="form-heading">Tasks</h2>
+    <div id="task-list"></div>
   </div>
 
   <script type="module" src="./main.js"></script>
