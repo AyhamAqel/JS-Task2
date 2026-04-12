@@ -1,11 +1,11 @@
 import { formatDate } from "./utils.js";
 
-// عناصر الأخطاء
+// the error elements
 const titleError = document.getElementById("title-error");
 const descriptionError = document.getElementById("description-error");
 const priorityError = document.getElementById("priority-error");
 
-// عناصر الفورم
+// the form inputs
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
 const priorityInput = document.getElementById("priority");
@@ -16,21 +16,21 @@ const cancelEditBtn = document.getElementById("cancel-edit-btn");
 const loadingEl = document.getElementById("loading");
 const globalErrorEl = document.getElementById("global-error");
 
-// مسح أخطاء الحقول
+// delete the error messages from the page 
 export function clearErrors() {
   titleError.textContent = "";
   descriptionError.textContent = "";
   priorityError.textContent = "";
 }
 
-// عرض أخطاء الحقول
+// show validation errors next to the relevant fields
 export function showErrors(errors) {
   titleError.textContent = errors.title || "";
   descriptionError.textContent = errors.description || "";
   priorityError.textContent = errors.priority || "";
 }
 
-// رسم التاسكات
+// draw the tasks on the page 
 export function renderTasks(tasks, taskList) {
   taskList.innerHTML = "";
 
@@ -39,7 +39,7 @@ export function renderTasks(tasks, taskList) {
     return;
   }
 
-  // document fragment للأداء
+  // document fragment for better performance when rendering multiple tasks
   const fragment = document.createDocumentFragment();
 
   tasks.forEach((task) => {
@@ -74,7 +74,7 @@ export function renderTasks(tasks, taskList) {
   taskList.appendChild(fragment);
 }
 
-// تعبئة الفورم عند التعديل
+//  populate the form when editing a task
 export function populateFormForEdit(task) {
   titleInput.value = task.title;
   descriptionInput.value = task.description;
@@ -85,24 +85,24 @@ export function populateFormForEdit(task) {
   cancelEditBtn.classList.remove("hidden");
 }
 
-// إعادة شكل الفورم للوضع الطبيعي
+//  reset the form to its default state
 export function resetFormUI() {
   submitBtn.textContent = "Add Task";
   cancelEditBtn.classList.add("hidden");
 }
 
-// إظهار/إخفاء loading
+// hide or show the loading indicator
 export function setLoadingState(isLoading) {
   loadingEl.classList.toggle("hidden", !isLoading);
 }
 
-// عرض خطأ عام
+//   an error message in case of API failure
 export function showGlobalError(message) {
   globalErrorEl.textContent = message;
   globalErrorEl.classList.remove("hidden");
 }
 
-// مسح الخطأ العام
+//  delete the global error message 
 export function clearGlobalError() {
   globalErrorEl.textContent = "";
   globalErrorEl.classList.add("hidden");
