@@ -1,6 +1,6 @@
 import { generateId } from "./utils.js";
 
-// إنشاء task جديدة
+// create a new task object
 export function createTask(title, description, priority) {
   return {
     id: generateId(),
@@ -12,7 +12,7 @@ export function createTask(title, description, priority) {
   };
 }
 
-// التحقق من المدخلات
+// validate the task data
 export function validateTaskData(title, description, priority) {
   const errors = {};
 
@@ -31,19 +31,19 @@ export function validateTaskData(title, description, priority) {
   return errors;
 }
 
-// تحديث task بطريقة immutable
+// update a task in the list
 export function updateTask(tasks, taskId, updatedValues) {
   return tasks.map((task) =>
     task.id === taskId ? { ...task, ...updatedValues } : task
   );
 }
 
-// حذف task
+// delete a task from the list
 export function deleteTask(tasks, taskId) {
   return tasks.filter((task) => task.id !== taskId);
 }
 
-// تغيير الحالة للدور اللي بعدها
+// change the status to the next one in the sequence
 export function getNextStatus(currentStatus) {
   if (currentStatus === "todo") {
     return "in-progress";
@@ -56,7 +56,7 @@ export function getNextStatus(currentStatus) {
   return "todo";
 }
 
-// فلترة + ترتيب بدون تعديل الأصل
+// filter and sort tasks based on the provided filters
 export function getFilteredAndSortedTasks(tasks, filters) {
   const filteredTasks = tasks.filter((task) => {
     const matchesStatus =
