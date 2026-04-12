@@ -22,7 +22,7 @@ import { saveTasksToStorage, loadTasksFromStorage } from "./storage.js";
 import { debounce } from "./utils.js";
 import { fakeApi } from "./api.js";
 
-// عناصر الصفحة
+//  DOM elements
 const form = document.getElementById("task-form");
 const titleInput = document.getElementById("title");
 const descriptionInput = document.getElementById("description");
@@ -36,10 +36,10 @@ const sortDateInput = document.getElementById("sort-date");
 const searchInput = document.getElementById("search");
 const cancelEditBtn = document.getElementById("cancel-edit-btn");
 
-// state الأساسي
+// state of tasks
 let tasks = [];
 
-// state خاص بالفلترة والترتيب
+// state of filters
 let filters = {
   status: "all",
   priority: "all",
@@ -47,18 +47,18 @@ let filters = {
   search: "",
 };
 
-// حفظ التاسكات في localStorage
+//  localStorage
 function persistTasks() {
   saveTasksToStorage(tasks);
 }
 
-// رسم التطبيق حسب الفلاتر الحالية
+// draw the tasks based on the current filters
 function renderApp() {
   const visibleTasks = getFilteredAndSortedTasks(tasks, filters);
   renderTasks(visibleTasks, taskList);
 }
 
-// إعادة الفورم لوضع الإضافة
+// reset the form to default state
 function resetForm() {
   form.reset();
   taskIdInput.value = "";
@@ -66,7 +66,7 @@ function resetForm() {
   resetFormUI();
 }
 
-// تحميل التطبيق أول مرة
+// run the application
 async function initApp() {
   try {
     setLoadingState(true);
@@ -90,7 +90,7 @@ async function initApp() {
   }
 }
 
-// إضافة أو تعديل task
+// add/edit task
 form.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -112,7 +112,7 @@ form.addEventListener("submit", async (event) => {
   try {
     setLoadingState(true);
 
-    // إذا في id يعني تعديل
+    // editing existing task
     if (editingTaskId) {
       const existingTask = tasks.find((task) => task.id === editingTaskId);
 
@@ -130,7 +130,7 @@ form.addEventListener("submit", async (event) => {
       await fakeApi.saveTask(updatedTask);
       tasks = updateTask(tasks, editingTaskId, updatedTask);
     } else {
-      // غير هيك: إضافة جديدة
+      //   creating new task 
       const newTask = createTask(title, description, priority);
 
       await fakeApi.saveTask(newTask);
@@ -148,7 +148,7 @@ form.addEventListener("submit", async (event) => {
   }
 });
 
-// event delegation لأزرار التاسكات
+// event delegation for task actions (edit, delete, change status)
 taskList.addEventListener("click", async (event) => {
   const button = event.target.closest("button");
 
@@ -176,7 +176,7 @@ taskList.addEventListener("click", async (event) => {
       return;
     }
 
-    // تعبئة الفورم للتعديل
+    // fill the form with the task data for editing
     if (action === "edit") {
       const taskToEdit = tasks.find((task) => task.id === id);
 
@@ -188,7 +188,7 @@ taskList.addEventListener("click", async (event) => {
       return;
     }
 
-    // تغيير الحالة
+    // change the task status
     if (action === "status") {
       const currentTask = tasks.find((task) => task.id === id);
 
@@ -214,7 +214,7 @@ taskList.addEventListener("click", async (event) => {
   }
 });
 
-// فلترة حسب الحالة
+// filter by status  
 filterStatusInput.addEventListener("change", (event) => {
   filters = {
     ...filters,
@@ -224,7 +224,7 @@ filterStatusInput.addEventListener("change", (event) => {
   renderApp();
 });
 
-// فلترة حسب الأولوية
+//   filter by priority
 filterPriorityInput.addEventListener("change", (event) => {
   filters = {
     ...filters,
@@ -234,7 +234,7 @@ filterPriorityInput.addEventListener("change", (event) => {
   renderApp();
 });
 
-// ترتيب حسب التاريخ
+//   sort by date
 sortDateInput.addEventListener("change", (event) => {
   filters = {
     ...filters,
@@ -244,7 +244,7 @@ sortDateInput.addEventListener("change", (event) => {
   renderApp();
 });
 
-// بحث مع debounce
+//  search with debounce
 const debouncedSearch = debounce((value) => {
   filters = {
     ...filters,
@@ -258,10 +258,10 @@ searchInput.addEventListener("input", (event) => {
   debouncedSearch(event.target.value);
 });
 
-// إلغاء وضع التعديل
+//  cancel editing and reset the form 
 cancelEditBtn.addEventListener("click", () => {
   resetForm();
 });
 
-// تشغيل التطبيق
+// initialize the app  
 initApp();
