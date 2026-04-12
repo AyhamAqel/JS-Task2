@@ -1,6 +1,6 @@
 const STORAGE_KEY = "task-manager-tasks";
 
-// حفظ التاسكات
+// save the tasks to storage
 export function saveTasksToStorage(tasks) {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
@@ -9,7 +9,7 @@ export function saveTasksToStorage(tasks) {
   }
 }
 
-// تحميل التاسكات
+//  unload the tasks from storage
 export function loadTasksFromStorage() {
   try {
     const storedTasks = localStorage.getItem(STORAGE_KEY);
@@ -20,7 +20,7 @@ export function loadTasksFromStorage() {
 
     const parsedTasks = JSON.parse(storedTasks);
 
-    // تأكد إن البيانات array
+    //sanity check to ensure we have an array of tasks
     if (!Array.isArray(parsedTasks)) {
       return [];
     }
