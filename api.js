@@ -1,4 +1,4 @@
-// fake api لمحاكاة السيرفر
+// fake api to simulate async operations and error handling 
 export const fakeApi = {
   fetchTasks() {
     return new Promise((resolve, reject) => {
