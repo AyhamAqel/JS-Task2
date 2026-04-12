@@ -1,4 +1,4 @@
-// توليد id جديد لكل task
+// create a unique ID for each task
 export function generateId() {
   if (window.crypto && crypto.randomUUID) {
     return crypto.randomUUID();
@@ -7,7 +7,7 @@ export function generateId() {
   return Date.now().toString();
 }
 
-// تنسيق التاريخ بشكل مفهوم
+// format the date in a user-friendly way
 export function formatDate(date) {
   const parsedDate = new Date(date);
 
@@ -18,7 +18,7 @@ export function formatDate(date) {
   return parsedDate.toLocaleString();
 }
 
-// debounce للبحث حتى ما نعمل render كل حرف مباشرة
+// debounce for searching so we don't render on every keystroke
 export function debounce(fn, delay) {
   let timeoutId;
 
