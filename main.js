@@ -168,7 +168,7 @@ taskList.addEventListener("click", async (event) => {
   try {
     setLoadingState(true);
 
-    // حذف
+    // Delete task
     if (action === "delete") {
       tasks = deleteTask(tasks, id);
       persistTasks();
